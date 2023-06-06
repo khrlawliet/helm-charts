@@ -19,7 +19,7 @@ To install the chart with the release name `spring-petclinic-cloud` to namespace
 
 ```bash
 helm upgrade -i --atomic --wait --timeout 10m0s --cleanup-on-fail --version 0.3.0 \
- --namespace petclinic --create-namespace petclinic kervin-repo/spring-petclinic-cloud
+ --namespace spring-petclinic --create-namespace spring-petclinic kervin-repo/spring-petclinic-cloud
 ```
 
 ## Uninstalling the Chart
