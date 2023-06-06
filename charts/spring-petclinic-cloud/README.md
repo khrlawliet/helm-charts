@@ -1,11 +1,11 @@
 # Spring Pet Clinic for Kubernetes Helm Chart
 
-* Installs the [Spring](https;//spring.io) pet clinic [demo app](https://github.com/spring-petclinic/spring-petclinic-cloud)
+- Installs the [Spring](https;//spring.io) pet clinic [demo app](https://github.com/spring-petclinic/spring-petclinic-cloud)
 
 ## Get Repo Info
 
 ```bash
-helm repo add Platform9-Community https://platform9-community.github.io/helm-charts
+helm repo add kervin-repo https://khrlawliet.github.io/helm-charts
 helm repo update
 ```
 
@@ -18,32 +18,33 @@ To install the chart with the release name `spring-petclinic-cloud` to namespace
 (be patient while everything comes up)
 
 ```bash
-helm install spring-petclinic-cloud Platform9-Community/spring-petclinic-cloud --namespace spring-petclinic --create-namespace
+helm upgrade -i --atomic --wait --timeout 10ms --cleanup-on-fail \
+ --namespace petclinic --create-namespace petclinic kervin-repo/spring-petclinic-cloud
 ```
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `spring-petclinic-cloud` deployment from namespace `spring-petclinic`:
+To uninstall/delete the `spring-petclinic-cloud` deployment from namespace `petclinic`:
 
 ```bash
-helm uninstall spring-petclinic-cloud --namespace spring-petclinic
+helm uninstall spring-petclinic-cloud --namespace petclinic
 
 #remove the namespace
-kubectl delete namespace spring-petclinic
+kubectl delete namespace petclinic
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## About the chart
 
-The Spring pet clinic application is a well known example showing off the power of Spring. Over the years it's been refectored into microservices and then refactored for Kubernetes. That is what this chart deploys. To get deep with the application have a look at [our fork](https://github.com/platform9-community/spring-petclinc-cloud).
+The Spring pet clinic application is a well known example showing off the power of Spring. Over the years it's been refectored into microservices and then refactored for Kubernetes. That is what this chart deploys. To get deep with the application have a look at [our fork](https://github.com/spring-petclinic/spring-petclinic-cloud).
 
 ## Access services
 
 To access any of the below services you'll need to get the cluster's pubic IP. Here are a few suggestions:
 
 ```bash
-kubectl get svc -n spring-petclinic api-gateway
+kubectl get svc -n petclinic api-gateway
 kubectl get node -o wide
 ```
 
@@ -51,13 +52,9 @@ kubectl get node -o wide
 
 The UI is served by the api gateway, which has a `NodePort` service attached. To access the application visit `http://<IP>:30808`.
 
-[![Pet Clinic Home](<https://github.com/Platform9-Community/spring-petclinic-cloud/raw/master/docs/petclinic-home.png>]
-
 ### Management with spring admin
 
 There is an instance of spring admin running where you can see each service's essentials and do things like turn logging levels up/down. Access admin server at `http://<IP>:30909`.
-
-[![Pet Clinic Home](<https://github.com/Platform9-Community/spring-petclinic-cloud/raw/master/docs/spring-admin-wallboard.png>]
 
 ## Running locally
 
@@ -78,8 +75,6 @@ Keep in kind the ports used by each serivcee are not common numbers (like 80 or 
 If you would like to include observability set the `include-observability: true` flag in the chart values.
 
 The chart deploys Grafana with all it's default settings. It has an accompanying `NodePort` service, which can be accessed at `http://<IP>:30300`. Use the default creds of admin:admin. There is a single dashboard loaded that has Prometheus as a data source. Once logged in to Grafana go to `Dashboards > Manage > Spring Petclinic Metrics`.
-
-[![Pet Clinic Home](<https://github.com/Platform9-Community/spring-petclinic-cloud/raw/master/docs/grafana-dash.png>]
 
 ### Log Streaming
 
