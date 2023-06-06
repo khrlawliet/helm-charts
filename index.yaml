@@ -2,8 +2,75 @@ apiVersion: v1
 entries:
   spring-petclinic-cloud:
   - apiVersion: v2
+    appVersion: 2.3.2
+    created: "2023-06-06T14:19:40.361971+08:00"
+    dependencies:
+    - alias: vets-db-mysql
+      name: mysql
+      repository: '@bitnami'
+      version: 8.5.9
+    - alias: visits-db-mysql
+      name: mysql
+      repository: '@bitnami'
+      version: 8.5.9
+    - alias: customers-db-mysql
+      name: mysql
+      repository: '@bitnami'
+      version: 8.5.9
+    - condition: somechart.enabled
+      name: prometheus
+      repository: '@prometheus-community'
+      tags:
+      - include-observability
+      version: 14.1.0
+    - name: grafana
+      repository: '@grafana'
+      tags:
+      - include-observability
+      version: 6.9.0
+    - name: zipkin
+      repository: '@carlosjgp'
+      tags:
+      - include-request-tracing
+      version: 0.2.0
+    - name: fluent-bit
+      repository: '@fluent'
+      tags:
+      - include-log-streaming
+      version: 0.15.13
+    - name: elasticsearch
+      repository: '@elastic'
+      tags:
+      - include-log-streaming
+      version: 7.13.0
+    - name: kibana
+      repository: '@elastic'
+      tags:
+      - include-log-streaming
+      version: 7.13.0
+    description: Spring pet clinic for Kubernetes on Platform9
+    digest: 336b3ad9dbd2a70eadccc7ff57ba61196e9428a853ee372a43c2877b518d19c5
+    home: https://khrlawliet.github.io/helm-charts/charts/spring-petclinic-cloud/
+    keywords:
+    - spring
+    - java
+    - spring cloud
+    - kubernetes
+    - platform9
+    kubeVersion: '>= 1.18.10 <= 1.20.5'
+    maintainers:
+    - email: kervinbalibagoso@gmail.com
+      name: Kervin Rey H. Balibagoso
+    name: spring-petclinic-cloud
+    sources:
+    - https://github.com/spring-petclinic/spring-petclinic-cloud
+    type: application
+    urls:
+    - packages/spring-petclinic-cloud-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: 2.3.1
-    created: "2023-06-06T13:42:03.923512+08:00"
+    created: "2023-06-06T14:19:40.3339804+08:00"
     dependencies:
     - alias: vets-db-mysql
       name: mysql
@@ -71,7 +138,7 @@ entries:
     version: 0.2.0
   testkube:
   - apiVersion: v2
-    created: "2023-06-06T13:42:03.9445065+08:00"
+    created: "2023-06-06T14:19:40.3789728+08:00"
     dependencies:
     - condition: testkube-operator.enabled
       name: testkube-operator
@@ -103,4 +170,4 @@ entries:
     urls:
     - packages/testkube-1.12.1.tgz
     version: 1.12.1
-generated: "2023-06-06T13:42:03.898508+08:00"
+generated: "2023-06-06T14:19:40.3009465+08:00"
